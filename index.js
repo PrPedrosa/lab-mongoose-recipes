@@ -19,6 +19,28 @@ const manageRecipes = async () => {
     await Recipe.deleteMany();
 
     // Run your code here, after you have insured that the connection was made
+    const firstRecipe = await Recipe.create({
+       title: "Bolonhesa", 
+       ingredients: ["massa", "carne", "tomate"],
+       cuisine: "Italiano",
+      })
+
+    console.log(firstRecipe.title);
+
+    const manyRecipes = await Recipe.insertMany(data);
+
+
+    manyRecipes.forEach(food => console.log(food.title));
+
+    const updatedRigatoni = await Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100}, {new: true})
+    console.log(updatedRigatoni);
+
+    const deletedCarrot = await Recipe.deleteOne({title: "Carrot Cake"});
+    console.log(deletedCarrot)
+
+
+
+    await dbConnection.disconnect();
   } catch (error) {
     console.log(error);
   }
